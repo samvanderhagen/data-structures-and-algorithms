@@ -86,19 +86,7 @@ def locate_card_linear_research(cards, query):
     else:
         return -1
 
-def is_first(cards, mid_number, mid):
-    target_number = mid_number
-    new_cards = cards.copy()
-    new_mid = mid
-
-    while True:
-        if target_number == new_cards[new_mid - 1]:
-            new_mid -= 1
-        else:
-            return mid
-            
-
-
+# Logarithmic Binary Search
 def locate_card(cards, query):
     lo, hi = 0, len(cards) - 1
     
