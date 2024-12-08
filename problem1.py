@@ -1,9 +1,9 @@
-# Linear Search algorithm 
+# Poblem 1: Alice has some cards with numbers written on them. She arranges the cards in decreasing order, and lays them out face down in a sequence on a table. She challenges Bob to pick out the card containing a given number by turning over as few cards as possible. Write a function to help Bob locate the card.
 # input: hidden cards 
 # input example: list = [1, 2, 3, 4, 5], item = 2
 # output: find the card 
 # output examples: index=1
-from jovian.pythondsa import evaluate_test_cases
+from jovian.pythondsa import evaluate_test_cases, evaluate_test_case
 
 tests = []
 
@@ -78,11 +78,45 @@ tests.append({
     'output': 2
 })
 
-def locate_card(cards, query):
+# Linear Binary Search
+def locate_card_linear_research(cards, query):
     for card in cards:
         if card == query:
             return cards.index(card)
     else:
         return -1
+
+def is_first(cards, mid_number, mid):
+    target_number = mid_number
+    new_cards = cards.copy()
+    new_mid = mid
+
+    while True:
+        if target_number == new_cards[new_mid - 1]:
+            new_mid -= 1
+        else:
+            return mid
+            
+
+
+def locate_card(cards, query):
+    lo, hi = 0, len(cards) - 1
+    
+    while lo <= hi:
+        mid = (lo + hi) // 2
+        mid_number = cards[mid]
+        before_mid = cards[mid-1]
+
+        if mid_number == query:
+            if before_mid == mid_number and (mid-1) > -1:
+                hi = mid - 1
+                continue
+            return mid
+        elif mid_number < query:
+            hi = mid - 1
+        elif mid_number > query:
+            lo = mid + 1
+    return -1
+
 evaluate_test_cases(locate_card, tests)
 
